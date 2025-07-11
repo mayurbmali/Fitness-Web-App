@@ -5,7 +5,7 @@
 
 > *Where Artificial Intelligence meets Actual Abs!*
 
-![FitFusion Banner]([https://your-fitness-banner-url.com/banner.png](https://uibundle.s3.amazonaws.com/images/product-cover-1650454462-fitness-gym-app-concept-splash-screen-1-png))
+![FitFusion Banner]([https://uibundle.s3.amazonaws.com/images/product-cover-1650454462-fitness-gym-app-concept-splash-screen-1-png])
 
 ---
 
