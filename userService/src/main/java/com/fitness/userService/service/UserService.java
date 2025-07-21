@@ -20,19 +20,23 @@ public class UserService {
 
     public UserResponse register(@Valid RegisterRequest request) {
 
+//        if(repository.existsByEmail(request.getEmail())){
+//            User existingUser = repository.findByEmail(request.getEmail());
+//            UserResponse userResponse = new UserResponse();
+//            userResponse.setId(existingUser.getId());
+//            userResponse.setKeycloakId(existingUser.getKeycloakId());
+//            userResponse.setPassword(existingUser.getPassword());
+//            userResponse.setEmail(existingUser.getEmail());
+//            userResponse.setFirstName(existingUser.getFirstName());
+//            userResponse.setLastName(existingUser.getLastName());
+//            userResponse.setCreatedAt(existingUser.getCreatedAt());
+//            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+//            return userResponse;
+//    }
+
         if(repository.existsByEmail(request.getEmail())){
-            User existingUser = repository.findByEmail(request.getEmail());
-            UserResponse userResponse = new UserResponse();
-            userResponse.setId(existingUser.getId());
-            userResponse.setKeycloakId(existingUser.getKeycloakId());
-            userResponse.setPassword(existingUser.getPassword());
-            userResponse.setEmail(existingUser.getEmail());
-            userResponse.setFirstName(existingUser.getFirstName());
-            userResponse.setLastName(existingUser.getLastName());
-            userResponse.setCreatedAt(existingUser.getCreatedAt());
-            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
-            return userResponse;
-    }
+            throw new RuntimeException("User already Exists with this email id, please use different email id");
+        }
 
         User user = new User();
         user.setEmail(request.getEmail());

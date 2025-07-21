@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mongo:  # Changed from 'mongodb' to 'mongo'
+    image: mongo:latest
+    container_name: mongodb_container
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: Mayur
+      MONGO_INITDB_DATABASE: fitnessactivity
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - fitness-app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo_express_container
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo  # Update this to match service name
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+      ME_CONFIG_BASICAUTH_USERNAME: expressuser
+      ME_CONFIG_BASICAUTH_PASSWORD: Mayur
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mongoadmin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: Mayur
+      ME_CONFIG_MONGODB_AUTH_DATABASE: admin
+    networks:
+      - fitness-app-network
+    depends_on:
+      mongo:  # Update dependency name
+        condition: service_healthy
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  fitness-app-network:
+    driver: bridge
