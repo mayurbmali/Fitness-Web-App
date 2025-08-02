@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ActivityService {
 
     private final com.fitness.activityservice.ActivityRepository activityRepository;
-//    private final UserValidationService userValidationService;
+    private final UserValidationService userValidationService;
 //    private final RabbitTemplate rabbitTemplate;
 //    @Value("${rabbitmq.exchange.name}")
 //    private String exchange;
@@ -25,11 +25,10 @@ public class ActivityService {
 //    private String routingKey;
 
     public ActivityResponse trackActivity(ActivityRequest request) {
-//
-//        boolean isValidUser = userValidationService.validateUser(request.getUserId());
-//        if (!isValidUser) {
-//            throw new RuntimeException("Invalid User: " + request.getUserId());
-//        }
+        boolean isValidUser = userValidationService.validateUser(request.getUserId());
+        if (!isValidUser) {
+            throw new RuntimeException("Invalid User: " + request.getUserId());
+        }
 
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
