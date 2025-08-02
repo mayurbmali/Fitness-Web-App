@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mongo:  # Changed from 'mongodb' to 'mongo'
+  mongo:
     image: mongo:latest
     container_name: mongodb_container
     restart: always
@@ -29,7 +29,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongo  # Update this to match service name
+      ME_CONFIG_MONGODB_SERVER: mongo
       ME_CONFIG_MONGODB_PORT: 27017
       ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
       ME_CONFIG_BASICAUTH_USERNAME: expressuser
@@ -40,7 +40,7 @@ services:
     networks:
       - fitness-app-network
     depends_on:
-      mongo:  # Update dependency name
+      mongo:
         condition: service_healthy
 
 volumes:
